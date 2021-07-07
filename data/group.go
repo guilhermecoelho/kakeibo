@@ -52,6 +52,7 @@ func PutGroup(g *models.Group) (models.Group, error) {
 func PostGroup(g *models.Group) (models.Group, error) {
 
 	group := *g
+	group.Id = 0
 	result := configurations.DBgorm.Create(&group)
 
 	if result.Error != nil {

@@ -9,67 +9,68 @@ import (
 
 func GetCategories() (models.Categories, error) {
 
-	group := models.Categories{}
-	result := configurations.DBgorm.Find(&group)
+	category := models.Categories{}
+	result := configurations.DBgorm.Find(&category)
 
 	if result.Error != nil {
-		return group, fmt.Errorf("error on: %v", result.Error)
+		return category, fmt.Errorf("error on: %v", result.Error)
 	}
 
-	return group, nil
+	return category, nil
 }
 
 func GetCategoryById(id int) (models.Category, error) {
 
-	group := models.Category{}
-	result := configurations.DBgorm.First(&group, id)
+	category := models.Category{}
+	result := configurations.DBgorm.First(&category, id)
 
 	if result.Error != nil {
-		return group, fmt.Errorf("error on: %v", result.Error)
+		return category, fmt.Errorf("error on: %v", result.Error)
 	}
 
-	return group, nil
+	return category, nil
 }
 
 func PutCategory(g *models.Category) (models.Category, error) {
 
-	group := *g
-	result := configurations.DBgorm.Save(&group)
+	category := *g
+	result := configurations.DBgorm.Save(&category)
 
 	if result.Error != nil {
-		return group, fmt.Errorf("error on: %v", result.Error)
+		return category, fmt.Errorf("error on: %v", result.Error)
 	}
 
-	group, err := GetCategoryById(group.Id)
+	category, err := GetCategoryById(category.Id)
 	if err != nil {
-		return group, fmt.Errorf("error on: %v", result.Error)
+		return category, fmt.Errorf("error on: %v", result.Error)
 	}
 
-	return group, nil
+	return category, nil
 
 }
 
 func PostCategory(g *models.Category) (models.Category, error) {
 
-	group := *g
-	result := configurations.DBgorm.Create(&group)
+	category := *g
+	category.Id = 0
+	result := configurations.DBgorm.Create(&category)
 
 	if result.Error != nil {
-		return group, fmt.Errorf("error on: %v", result.Error)
+		return category, fmt.Errorf("error on: %v", result.Error)
 	}
 
-	group, err := GetCategoryById(group.Id)
+	category, err := GetCategoryById(category.Id)
 	if err != nil {
-		return group, fmt.Errorf("error on: %v", result.Error)
+		return category, fmt.Errorf("error on: %v", result.Error)
 	}
 
-	return group, nil
+	return category, nil
 }
 
 func DeleteCategory(g *models.Category) error {
 
-	group := *g
-	result := configurations.DBgorm.Delete(&group)
+	category := *g
+	result := configurations.DBgorm.Delete(&category)
 
 	if result.Error != nil {
 		return fmt.Errorf("error on: %v", result.Error)

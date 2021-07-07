@@ -26,5 +26,11 @@ func main() {
 	postRouter.HandleFunc("/group/", handlers.PostGroup)
 	deleteRouter.HandleFunc("/group/", handlers.DeleteGroup)
 
+	getRouter.HandleFunc("/category/", handlers.GetCategories)
+	getRouter.HandleFunc("/category/{id}", handlers.GetCategoryById)
+	putRouter.HandleFunc("/category/", handlers.PostCategory)
+	postRouter.HandleFunc("/category/", handlers.PostCategory)
+	deleteRouter.HandleFunc("/category/", handlers.DeleteCategory)
+
 	log.Fatal(http.ListenAndServe(":8080", routes))
 }
