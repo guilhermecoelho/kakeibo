@@ -28,9 +28,21 @@ func main() {
 
 	getRouter.HandleFunc("/category/", handlers.GetCategories)
 	getRouter.HandleFunc("/category/{id}", handlers.GetCategoryById)
-	putRouter.HandleFunc("/category/", handlers.PostCategory)
+	putRouter.HandleFunc("/category/", handlers.PutCategory)
 	postRouter.HandleFunc("/category/", handlers.PostCategory)
 	deleteRouter.HandleFunc("/category/", handlers.DeleteCategory)
+
+	getRouter.HandleFunc("/expense/", handlers.GetExpenses)
+	getRouter.HandleFunc("/expense/{id}", handlers.GetExpenseById)
+	putRouter.HandleFunc("/expense/", handlers.PutExpense)
+	postRouter.HandleFunc("/expense/", handlers.PostExpense)
+	deleteRouter.HandleFunc("/expense/", handlers.DeleteExpense)
+
+	getRouter.HandleFunc("/income/", handlers.GetIncomes)
+	getRouter.HandleFunc("/income/{id}", handlers.GetIncomeById)
+	putRouter.HandleFunc("/income/", handlers.PutIncome)
+	postRouter.HandleFunc("/income/", handlers.PostIncome)
+	deleteRouter.HandleFunc("/income/", handlers.DeleteIncome)
 
 	log.Fatal(http.ListenAndServe(":8080", routes))
 }
