@@ -83,7 +83,6 @@ func PostCategory(resp http.ResponseWriter, r *http.Request) {
 	if err != nil {
 		http.Error(resp, "Unable to marshal json", http.StatusInternalServerError)
 	}
-
 }
 
 func DeleteCategory(resp http.ResponseWriter, r *http.Request) {

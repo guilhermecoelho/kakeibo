@@ -20,7 +20,11 @@ func main() {
 	postRouter := routes.Methods(http.MethodPost).Subrouter()
 	deleteRouter := routes.Methods(http.MethodDelete).Subrouter()
 
-	getRouter.HandleFunc("/group/", handlers.GetGroups)
+	postRouter.HandleFunc("/login/", handlers.Login)
+
+	//getRouter.HandleFunc("/group/", handlers.GetGroups)
+	getRouter.HandleFunc("/group/", configurations.IsAuthorized(handlers.GetGroups))
+
 	getRouter.HandleFunc("/group/{id}", handlers.GetGroupById)
 	putRouter.HandleFunc("/group/", handlers.PutGroup)
 	postRouter.HandleFunc("/group/", handlers.PostGroup)
@@ -44,5 +48,19 @@ func main() {
 	postRouter.HandleFunc("/income/", handlers.PostIncome)
 	deleteRouter.HandleFunc("/income/", handlers.DeleteIncome)
 
+	getRouter.HandleFunc("/user/", handlers.GetUsers)
+	getRouter.HandleFunc("/user/{id}", handlers.GetUserById)
+	putRouter.HandleFunc("/user/", handlers.PutUser)
+	postRouter.HandleFunc("/user/", handlers.PostUser)
+	deleteRouter.HandleFunc("/user/", handlers.DeleteUser)
+
 	log.Fatal(http.ListenAndServe(":8080", routes))
+}
+
+func AdminIndex(w http.ResponseWriter, r *http.Request) {
+	if r.Header.Get("Role") != "admin" {
+		w.Write([]byte("Not authorized."))
+		return
+	}
+	w.Write([]byte("Welcome, Admin."))
 }

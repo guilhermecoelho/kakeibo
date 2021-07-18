@@ -50,4 +50,6 @@ func CreateDatabase() {
 	DBgorm.Debug().AutoMigrate(&models.Expense{})
 	DBgorm.Debug().Migrator().DropTable(&models.Income{})
 	DBgorm.Debug().AutoMigrate(&models.Income{})
+	DBgorm.Debug().Migrator().DropTable(&models.User{})
+	DBgorm.Debug().AutoMigrate(&models.User{})
 }
