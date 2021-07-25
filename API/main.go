@@ -15,15 +15,15 @@ func main() {
 
 	routes := mux.NewRouter().StrictSlash(true)
 
-	getRouter := routes.Methods(http.MethodGet).Subrouter()
-	putRouter := routes.Methods(http.MethodPut).Subrouter()
-	postRouter := routes.Methods(http.MethodPost).Subrouter()
-	deleteRouter := routes.Methods(http.MethodDelete).Subrouter()
+	getRouter := routes.Methods(http.MethodGet).PathPrefix("/api").Subrouter()
+	putRouter := routes.Methods(http.MethodPut).PathPrefix("/api").Subrouter()
+	postRouter := routes.Methods(http.MethodPost).PathPrefix("/api").Subrouter()
+	deleteRouter := routes.Methods(http.MethodDelete).PathPrefix("/api").Subrouter()
 
 	postRouter.HandleFunc("/login/", handlers.Login)
 
-	//getRouter.HandleFunc("/group/", handlers.GetGroups)
-	getRouter.HandleFunc("/group/", configurations.IsAuthorized(handlers.GetGroups))
+	getRouter.HandleFunc("/group/", handlers.GetGroups)
+	//getRouter.HandleFunc("/group/", configurations.IsAuthorized(handlers.GetGroups))
 
 	getRouter.HandleFunc("/group/{id}", handlers.GetGroupById)
 	putRouter.HandleFunc("/group/", handlers.PutGroup)

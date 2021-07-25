@@ -1,0 +1,5 @@
+<p>groups</p>
+
+<li *ngFor="let group of groups$ | async">
+    {{group.id}} - {{group.name}}
+</li>
