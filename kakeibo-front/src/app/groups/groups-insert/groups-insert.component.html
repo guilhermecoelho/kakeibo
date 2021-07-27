@@ -1,1 +1,8 @@
-<p>groups-insert works!</p>
+<p>groups-insert</p>
+
+<form [formGroup]="groupForm" (ngSubmit)="onSubmit()">
+    <label for="name">Name</label>
+    <input id="name" type="text" formControlName="name">
+
+    <button class="button" type="submit">Salvar</button>
+</form>

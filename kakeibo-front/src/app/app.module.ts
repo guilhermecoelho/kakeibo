@@ -7,6 +7,7 @@ import { GroupsComponent } from './groups/groups.component';
 import { HttpClientModule } from '@angular/common/http';
 import { GroupsInsertComponent } from './groups/groups-insert/groups-insert.component';
 import { GroupServiceService } from './groups/services/group-service.service';
+import { ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -17,7 +18,8 @@ import { GroupServiceService } from './groups/services/group-service.service';
   imports: [
     BrowserModule,
     AppRoutingModule,
-    HttpClientModule
+    HttpClientModule,
+    ReactiveFormsModule
   ],
   providers: [GroupServiceService],
   bootstrap: [AppComponent]
