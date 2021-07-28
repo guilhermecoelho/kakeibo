@@ -64,6 +64,7 @@ func IsAuthorized(handler http.HandlerFunc) http.HandlerFunc {
 			http.Error(w, "invalid token", http.StatusUnauthorized)
 			return
 		}
+		handler.ServeHTTP(w, r)
 	}
 }
 

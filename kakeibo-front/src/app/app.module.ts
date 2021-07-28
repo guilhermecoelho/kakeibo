@@ -4,16 +4,21 @@ import { NgModule } from '@angular/core';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { GroupsComponent } from './groups/groups.component';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { GroupsInsertComponent } from './groups/groups-insert/groups-insert.component';
 import { GroupServiceService } from './groups/services/group-service.service';
 import { ReactiveFormsModule } from '@angular/forms';
+import { HandleInterceptor } from './handle.interceptor';
+import { LocalStorageService } from './local-storage.service';
+import { LoginComponent } from './login/login.component';
+import { LoginService } from './login/login.service';
 
 @NgModule({
   declarations: [
     AppComponent,
     GroupsComponent,
-    GroupsInsertComponent
+    GroupsInsertComponent,
+    LoginComponent
   ],
   imports: [
     BrowserModule,
@@ -21,7 +26,10 @@ import { ReactiveFormsModule } from '@angular/forms';
     HttpClientModule,
     ReactiveFormsModule
   ],
-  providers: [GroupServiceService],
+  providers: [
+    GroupServiceService,
+    { provide: HTTP_INTERCEPTORS, useClass: HandleInterceptor, multi: true, deps:[LocalStorageService, LoginService]}
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

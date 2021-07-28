@@ -22,8 +22,8 @@ func main() {
 
 	postRouter.HandleFunc("/login/", handlers.Login)
 
-	getRouter.HandleFunc("/group/", handlers.GetGroups)
-	//getRouter.HandleFunc("/group/", configurations.IsAuthorized(handlers.GetGroups))
+	//getRouter.HandleFunc("/group/", handlers.GetGroups)
+	getRouter.HandleFunc("/group/", configurations.IsAuthorized(handlers.GetGroups))
 
 	getRouter.HandleFunc("/group/{id}", handlers.GetGroupById)
 	putRouter.HandleFunc("/group/", handlers.PutGroup)

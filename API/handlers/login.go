@@ -18,15 +18,15 @@ type AuthenticationResponse struct {
 
 func Login(resp http.ResponseWriter, r *http.Request) {
 
-	var authdetails Authentication
+	//var authdetails Authentication
 	var authResponse AuthenticationResponse
 
-	err := json.NewDecoder(r.Body).Decode(&authdetails)
-	if err != nil {
-		resp.Header().Set("Content-Type", "application/json")
-		json.NewEncoder(resp).Encode(err)
-		return
-	}
+	// err := json.NewDecoder(r.Body).Decode(&authdetails)
+	// if err != nil {
+	// 	resp.Header().Set("Content-Type", "application/json")
+	// 	json.NewEncoder(resp).Encode(err)
+	// 	return
+	// }
 	//user := GetUsers()
 	token, _ := configurations.NewToken()
 	authResponse.Token = token
