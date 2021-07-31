@@ -27,18 +27,18 @@ func Login(resp http.ResponseWriter, r *http.Request) {
 
 	user, err := data.GetUserByName(login.User)
 	if err != nil {
-		http.Error(resp, "invalid password or user", http.StatusInternalServerError)
+		http.Error(resp, "invalid password or user", http.StatusBadRequest)
 		return
 	}
 
 	compareHash, errorHash := configurations.CompareHashAndPassword(login.Password, user.Hash)
 	if errorHash != nil {
-		http.Error(resp, "invalid password or user", http.StatusInternalServerError)
+		http.Error(resp, "invalid password or user", http.StatusBadRequest)
 		return
 	}
 
 	if !compareHash {
-		http.Error(resp, "invalid password or user", http.StatusInternalServerError)
+		http.Error(resp, "invalid password or user", http.StatusBadRequest)
 		return
 	}
 
