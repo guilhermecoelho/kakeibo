@@ -5,6 +5,7 @@ import (
 	"strconv"
 
 	"github.com/gorilla/mux"
+	"github.com/guilhermecoelho/kakeibo/configurations"
 	"github.com/guilhermecoelho/kakeibo/data"
 	"github.com/guilhermecoelho/kakeibo/models"
 )
@@ -74,12 +75,19 @@ func PostUser(resp http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	dataMoviment, errorProcess := data.PostUser(&user)
+	generateHash, errGenerate := configurations.GenerateHash(user.Password)
+	if errGenerate != nil {
+		http.Error(resp, errGenerate.Error(), http.StatusInternalServerError)
+		return
+	}
+	user.Hash = generateHash
+
+	dataUser, errorProcess := data.PostUser(&user)
 	if errorProcess != nil {
 		http.Error(resp, errorProcess.Error(), http.StatusInternalServerError)
 		return
 	}
-	err := dataMoviment.ToJSON(resp)
+	err := dataUser.ToJSON(resp)
 	if err != nil {
 		http.Error(resp, "Unable to marshal json", http.StatusInternalServerError)
 	}

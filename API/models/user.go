@@ -10,7 +10,8 @@ import (
 type User struct {
 	Id       int    `json:"id"  gorm:"primary_key"`
 	User     string `json:"user"`
-	Password string `json:"password"`
+	Password string `json:"password" gorm:"-"`
+	Hash     []byte `json:"byte"`
 }
 
 type Users []*User
