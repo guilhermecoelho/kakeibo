@@ -5,29 +5,43 @@ import (
 	"net/http"
 
 	"github.com/guilhermecoelho/kakeibo/configurations"
+	"github.com/guilhermecoelho/kakeibo/data"
+	"github.com/guilhermecoelho/kakeibo/models"
 )
-
-type Authentication struct {
-	Username string `json:"username"`
-	Password string `json:"password"`
-}
 
 type AuthenticationResponse struct {
 	Token string `json:"token"`
 }
 
+var login = models.Login{}
+
 func Login(resp http.ResponseWriter, r *http.Request) {
 
-	//var authdetails Authentication
 	var authResponse AuthenticationResponse
 
-	// err := json.NewDecoder(r.Body).Decode(&authdetails)
-	// if err != nil {
-	// 	resp.Header().Set("Content-Type", "application/json")
-	// 	json.NewEncoder(resp).Encode(err)
-	// 	return
-	// }
-	//user := GetUsers()
+	errDecode := login.DecodeBody(*r)
+	if errDecode != nil {
+		http.Error(resp, "Request format error", http.StatusBadRequest)
+		return
+	}
+
+	user, err := data.GetUserByName(login.User)
+	if err != nil {
+		http.Error(resp, "invalid password or user", http.StatusInternalServerError)
+		return
+	}
+
+	compareHash, errorHash := configurations.CompareHashAndPassword(login.Password, user.Hash)
+	if errorHash != nil {
+		http.Error(resp, "invalid password or user", http.StatusInternalServerError)
+		return
+	}
+
+	if !compareHash {
+		http.Error(resp, "invalid password or user", http.StatusInternalServerError)
+		return
+	}
+
 	token, _ := configurations.NewToken()
 	authResponse.Token = token
 

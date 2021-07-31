@@ -38,6 +38,7 @@ func InitDatabaseGorm() {
 	fmt.Printf("Connected on postgre with gorm!\n")
 
 	DBgorm = db
+
 }
 
 func CreateDatabase() {

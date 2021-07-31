@@ -47,6 +47,28 @@ func GetUserById(resp http.ResponseWriter, r *http.Request) {
 	}
 }
 
+func GetUserByName(resp http.ResponseWriter, r *http.Request) {
+
+	params := mux.Vars(r)
+	name := params["name"]
+	if name == "" {
+		http.Error(resp, "invalid user name", http.StatusBadRequest)
+		return
+	}
+
+	user, errorData := data.GetUserByName(name)
+	if errorData != nil {
+		http.Error(resp, errorData.Error(), http.StatusInternalServerError)
+		return
+	}
+
+	err := user.ToJSON(resp)
+	if err != nil {
+		http.Error(resp, "Unable to marshal json", http.StatusInternalServerError)
+	}
+
+}
+
 func PutUser(resp http.ResponseWriter, r *http.Request) {
 
 	errDecode := user.DecodeBody(*r)

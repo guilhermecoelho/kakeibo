@@ -31,6 +31,18 @@ func GetUserById(id int) (models.User, error) {
 	return user, nil
 }
 
+func GetUserByName(name string) (models.User, error) {
+
+	user := models.User{}
+	result := configurations.DBgorm.Where("name = ?", name).First(&user)
+
+	if result.Error != nil {
+		return user, fmt.Errorf("error on: %v", result.Error)
+	}
+
+	return user, nil
+}
+
 func PutUser(g *models.User) (models.User, error) {
 
 	user := *g

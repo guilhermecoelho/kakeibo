@@ -50,6 +50,7 @@ func main() {
 
 	getRouter.HandleFunc("/user/", handlers.GetUsers)
 	getRouter.HandleFunc("/user/{id}", handlers.GetUserById)
+	getRouter.HandleFunc("/user/name/{name}", handlers.GetUserByName)
 	putRouter.HandleFunc("/user/", handlers.PutUser)
 	postRouter.HandleFunc("/user/", handlers.PostUser)
 	deleteRouter.HandleFunc("/user/", handlers.DeleteUser)

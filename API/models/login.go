@@ -7,26 +7,24 @@ import (
 	"net/http"
 )
 
-type User struct {
-	Id       int    `json:"id"  gorm:"primary_key"`
-	Name     string `json:"user"`
-	Password string `gorm:"-"`
-	Hash     []byte
+type Login struct {
+	User     string `json:"user"`
+	Password string `json:"password"`
 }
 
-type Users []*User
+type Logins []*Login
 
-func (m *Users) ToJSON(w io.Writer) error {
+func (m *Logins) ToJSON(w io.Writer) error {
 	e := json.NewEncoder(w)
 	return e.Encode(m)
 }
 
-func (m *User) ToJSON(w io.Writer) error {
+func (m *Login) ToJSON(w io.Writer) error {
 	e := json.NewEncoder(w)
 	return e.Encode(m)
 }
 
-func (mov *User) DecodeBody(r http.Request) error {
+func (mov *Login) DecodeBody(r http.Request) error {
 
 	errorForm := r.ParseForm()
 	if errorForm != nil {
