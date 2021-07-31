@@ -12,13 +12,17 @@ import { HandleInterceptor } from './handle.interceptor';
 import { LocalStorageService } from './local-storage.service';
 import { LoginComponent } from './login/login.component';
 import { LoginService } from './login/login.service';
+import { CategoriesComponent } from './categories/categories.component';
+import { CategoriesInsertComponent } from './categories/categories-insert/categories-insert.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     GroupsComponent,
     GroupsInsertComponent,
-    LoginComponent
+    LoginComponent,
+    CategoriesComponent,
+    CategoriesInsertComponent
   ],
   imports: [
     BrowserModule,
