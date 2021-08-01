@@ -1,8 +1,9 @@
 <p>groups-insert</p>
 
+<button class="button" type="submit" (click)="onDelete()">Delete</button>
 <form [formGroup]="groupForm" (ngSubmit)="onSubmit()">
     <label for="name">Name</label>
     <input id="name" type="text" formControlName="name">
 
-    <button class="button" type="submit">Salvar</button>
+    <button class="button" type="submit">Save</button>
 </form>

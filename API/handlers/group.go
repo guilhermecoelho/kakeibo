@@ -88,9 +88,15 @@ func PostGroup(resp http.ResponseWriter, r *http.Request) {
 
 func DeleteGroup(resp http.ResponseWriter, r *http.Request) {
 
-	errDecode := group.DecodeBody(*r)
-	if errDecode != nil {
-		http.Error(resp, "Request format error", http.StatusBadRequest)
+	params := mux.Vars(r)
+	id, errorReq := strconv.Atoi(params["id"])
+	if errorReq != nil {
+		http.Error(resp, errorReq.Error(), http.StatusBadRequest)
+		return
+	}
+	group, errGet := data.GetGroupById(id)
+	if errGet != nil {
+		http.Error(resp, errGet.Error(), http.StatusBadRequest)
 		return
 	}
 

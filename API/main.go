@@ -28,7 +28,7 @@ func main() {
 	getRouter.HandleFunc("/group/{id}", handlers.GetGroupById)
 	putRouter.HandleFunc("/group/", handlers.PutGroup)
 	postRouter.HandleFunc("/group/", handlers.PostGroup)
-	deleteRouter.HandleFunc("/group/", handlers.DeleteGroup)
+	deleteRouter.HandleFunc("/group/{id}", handlers.DeleteGroup)
 
 	getRouter.HandleFunc("/category/", handlers.GetCategories)
 	getRouter.HandleFunc("/category/{id}", handlers.GetCategoryById)

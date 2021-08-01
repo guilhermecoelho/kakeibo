@@ -1,4 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { Group } from '../models/group.model';
 import { GroupServiceService } from './services/group-service.service';
 
@@ -14,7 +15,14 @@ export class GroupsComponent implements OnInit {
 
   dataSource: Group[];
 
-  constructor(private service: GroupServiceService) { }
+  constructor
+  (
+    private service: GroupServiceService,
+    private router: Router
+  ) 
+  {
+
+  }
 
   ngOnInit(): void {
 
@@ -23,6 +31,11 @@ export class GroupsComponent implements OnInit {
   }
 
   clickedRows(row: any){
-    console.log(row)
+    this.router.navigate(['/groups/insert', row.id]);
+    
+  }
+
+  createNew(){
+    this.router.navigate(['/groups/insert']);
   }
 }
