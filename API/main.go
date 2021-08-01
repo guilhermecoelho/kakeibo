@@ -34,7 +34,7 @@ func main() {
 	getRouter.HandleFunc("/category/{id}", handlers.GetCategoryById)
 	putRouter.HandleFunc("/category/", handlers.PutCategory)
 	postRouter.HandleFunc("/category/", handlers.PostCategory)
-	deleteRouter.HandleFunc("/category/", handlers.DeleteCategory)
+	deleteRouter.HandleFunc("/category/{id}", handlers.DeleteCategory)
 
 	getRouter.HandleFunc("/expense/", handlers.GetExpenses)
 	getRouter.HandleFunc("/expense/{id}", handlers.GetExpenseById)

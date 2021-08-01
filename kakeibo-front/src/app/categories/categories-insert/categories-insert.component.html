@@ -1,1 +1,14 @@
-<p>categories-insert works!</p>
+<p>categories-insert</p>
+
+<button class="button" type="submit" (click)="onDelete()">Delete</button>
+<form [formGroup]="categoryForm" (ngSubmit)="onSubmit()">
+    <label for="name">Name</label>
+    <input id="name" type="text" formControlName="name">
+
+    <select class="custom-select" formControlName="group">
+        <option *ngFor="let group of groups" [ngValue]="group">{{group.name}}</option>
+     </select>
+
+    <button class="button" type="submit">Save</button>
+</form>
+

@@ -10,6 +10,7 @@ import (
 func GetCategories() (models.Categories, error) {
 
 	category := models.Categories{}
+
 	result := configurations.DBgorm.Find(&category)
 
 	if result.Error != nil {

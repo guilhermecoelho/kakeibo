@@ -87,9 +87,15 @@ func PostCategory(resp http.ResponseWriter, r *http.Request) {
 
 func DeleteCategory(resp http.ResponseWriter, r *http.Request) {
 
-	errDecode := category.DecodeBody(*r)
-	if errDecode != nil {
-		http.Error(resp, "Request format error", http.StatusBadRequest)
+	params := mux.Vars(r)
+	id, errorReq := strconv.Atoi(params["id"])
+	if errorReq != nil {
+		http.Error(resp, errorReq.Error(), http.StatusBadRequest)
+		return
+	}
+	category, errGet := data.GetCategoryById(id)
+	if errGet != nil {
+		http.Error(resp, errGet.Error(), http.StatusBadRequest)
 		return
 	}
 
