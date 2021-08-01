@@ -14,6 +14,12 @@ import { LoginComponent } from './login/login.component';
 import { LoginService } from './login/login.service';
 import { CategoriesComponent } from './categories/categories.component';
 import { CategoriesInsertComponent } from './categories/categories-insert/categories-insert.component';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { MatButtonModule } from '@angular/material/button';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
+import { MatListModule } from '@angular/material/list';
+import { MatTableModule } from '@angular/material/table';
 
 @NgModule({
   declarations: [
@@ -28,7 +34,13 @@ import { CategoriesInsertComponent } from './categories/categories-insert/catego
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    BrowserAnimationsModule,
+    MatButtonModule,
+    MatFormFieldModule,
+    MatInputModule,
+    MatListModule,
+    MatTableModule
   ],
   providers: [
     GroupServiceService,

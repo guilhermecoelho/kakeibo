@@ -1,6 +1,4 @@
-import { Component, OnInit } from '@angular/core';
-import { EMPTY, Observable } from 'rxjs';
-import { catchError } from 'rxjs/operators';
+import { Component, Input, OnInit } from '@angular/core';
 import { Group } from '../models/group.model';
 import { GroupServiceService } from './services/group-service.service';
 
@@ -10,13 +8,21 @@ import { GroupServiceService } from './services/group-service.service';
   styleUrls: ['./groups.component.css']
 })
 
-export class GroupsComponent implements OnInit {
 
-  groups$: Observable<Group[]>;
+export class GroupsComponent implements OnInit {
+  @Input() columns = ['id', 'name'];
+
+  dataSource: Group[];
 
   constructor(private service: GroupServiceService) { }
 
   ngOnInit(): void {
-    this.groups$ = this.service.getGroups()
+
+    this.service.getGroups()
+    .subscribe(data => this.dataSource = data)
+  }
+
+  clickedRows(row: any){
+    console.log(row)
   }
 }
