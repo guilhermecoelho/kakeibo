@@ -88,9 +88,15 @@ func PostExpense(resp http.ResponseWriter, r *http.Request) {
 
 func DeleteExpense(resp http.ResponseWriter, r *http.Request) {
 
-	errDecode := expense.DecodeBody(*r)
-	if errDecode != nil {
-		http.Error(resp, "Request format error", http.StatusBadRequest)
+	params := mux.Vars(r)
+	id, errorReq := strconv.Atoi(params["id"])
+	if errorReq != nil {
+		http.Error(resp, errorReq.Error(), http.StatusBadRequest)
+		return
+	}
+	expense, errGet := data.GetExpensesById(id)
+	if errGet != nil {
+		http.Error(resp, errGet.Error(), http.StatusBadRequest)
 		return
 	}
 

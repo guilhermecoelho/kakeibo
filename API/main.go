@@ -40,7 +40,7 @@ func main() {
 	getRouter.HandleFunc("/expense/{id}", handlers.GetExpenseById)
 	putRouter.HandleFunc("/expense/", handlers.PutExpense)
 	postRouter.HandleFunc("/expense/", handlers.PostExpense)
-	deleteRouter.HandleFunc("/expense/", handlers.DeleteExpense)
+	deleteRouter.HandleFunc("/expense/{id}", handlers.DeleteExpense)
 
 	getRouter.HandleFunc("/income/", handlers.GetIncomes)
 	getRouter.HandleFunc("/income/{id}", handlers.GetIncomeById)

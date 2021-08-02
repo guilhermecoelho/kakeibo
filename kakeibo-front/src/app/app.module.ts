@@ -20,6 +20,8 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatListModule } from '@angular/material/list';
 import { MatTableModule } from '@angular/material/table';
+import { ExpensesComponent } from './expenses/expenses.component';
+import { ExpensesInsertComponent } from './expenses/expenses-insert/expenses-insert.component';
 
 @NgModule({
   declarations: [
@@ -28,7 +30,9 @@ import { MatTableModule } from '@angular/material/table';
     GroupsInsertComponent,
     LoginComponent,
     CategoriesComponent,
-    CategoriesInsertComponent
+    CategoriesInsertComponent,
+    ExpensesComponent,
+    ExpensesInsertComponent
   ],
   imports: [
     BrowserModule,
