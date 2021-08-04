@@ -15,6 +15,7 @@ export class IncomeInsertComponent implements OnInit {
 
   incomeForm: FormGroup
   income: Income
+  selectedCategory: any;
 
   categories: Category[]
 
@@ -52,17 +53,27 @@ export class IncomeInsertComponent implements OnInit {
         this.incomeForm.controls[`amount`].setValue(this.income.amount)
         this.incomeForm.controls[`date`].setValue(this.income.date)
         this.incomeForm.controls[`note`].setValue(this.income.note)
+
+        this.selectedCategory = this.categories.find(x => x.id === this.income.categoryId)
       });
     }
   }
 
   onSubmit(): void{
     const id = parseInt(this.route.snapshot.paramMap.get('id'), 10);
-
+    this.incomeForm.value.category = this.selectedCategory
+    
     if(id !== null && !isNaN(id)) {
-      this.income.id = id
-      this.income.name = this.incomeForm.value.name
-      this.income.categoryId = this.incomeForm.value.group.id
+      
+      this.income = {
+        id: id,
+        name:this.incomeForm.value.name,
+        date: this.incomeForm.value.date,
+        amount: this.incomeForm.value.amount,
+        categoryId: this.incomeForm.value.category.id,
+        category:this.selectedCategory,
+        note: this.incomeForm.value.note
+      }
 
       this.service.putIncome(this.income)
       .subscribe((resp) => {

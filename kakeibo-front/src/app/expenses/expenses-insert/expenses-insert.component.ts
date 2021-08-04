@@ -15,6 +15,7 @@ export class ExpensesInsertComponent implements OnInit {
 
   expenseForm: FormGroup
   expense: Expense
+  selectedCategory: any;
 
   categories: Category[]
 
@@ -52,17 +53,27 @@ export class ExpensesInsertComponent implements OnInit {
         this.expenseForm.controls[`amount`].setValue(this.expense.amount)
         this.expenseForm.controls[`date`].setValue(this.expense.date)
         this.expenseForm.controls[`note`].setValue(this.expense.note)
+
+        this.selectedCategory = this.categories.find(x => x.id === this.expense.categoryId)
       });
     }
   }
 
   onSubmit(): void{
     const id = parseInt(this.route.snapshot.paramMap.get('id'), 10);
+    this.expenseForm.value.category = this.selectedCategory
 
     if(id !== null && !isNaN(id)) {
-      this.expense.id = id
-      this.expense.name = this.expenseForm.value.name
-      this.expense.categoryId = this.expenseForm.value.group.id
+      
+      this.expense = {
+        id: id,
+        name:this.expenseForm.value.name,
+        date: this.expenseForm.value.date,
+        amount: this.expenseForm.value.amount,
+        categoryId: this.expenseForm.value.category.id,
+        category:this.selectedCategory,
+        note: this.expenseForm.value.note
+      }
 
       this.service.putExpense(this.expense)
       .subscribe((resp) => {

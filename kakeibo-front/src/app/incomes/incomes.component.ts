@@ -9,7 +9,7 @@ import { IncomeService } from './income.service';
   styleUrls: ['./incomes.component.css']
 })
 export class IncomesComponent implements OnInit {
-  @Input() columns = ['id', 'name'];
+  @Input() columns = ['id', 'name','amount', 'date', 'note'];
 
   dataSource: Income[];
 

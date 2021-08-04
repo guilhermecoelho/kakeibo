@@ -26,6 +26,7 @@ import { IncomeInsertComponent } from './incomes/income-insert/income-insert.com
 import { Router } from '@angular/router';
 import { UsersComponent } from './users/users.component';
 import { UsersInsertComponent } from './users/users-insert/users-insert.component';
+import { MatSelectModule } from '@angular/material/select';
 
 @NgModule({
   declarations: [
@@ -52,7 +53,8 @@ import { UsersInsertComponent } from './users/users-insert/users-insert.componen
     MatFormFieldModule,
     MatInputModule,
     MatListModule,
-    MatTableModule
+    MatTableModule,
+    MatSelectModule
   ],
   providers: [
     GroupServiceService,

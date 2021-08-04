@@ -17,6 +17,7 @@ export class CategoriesInsertComponent implements OnInit {
   category: Category
 
   groups: Group[]
+  selectedGroup: any
 
   constructor(
     private formBuilder: FormBuilder, 
@@ -46,12 +47,14 @@ export class CategoriesInsertComponent implements OnInit {
         this.category = data
         this.categoryForm.controls[`name`].setValue(this.category.name)
         this.categoryForm.controls[`group`].setValue(this.groups.find(x => x.id === this.category.groupId), {onlySelf:true})
+        this.selectedGroup = this.groups.find(x => x.id === this.category.groupId)
       });
     }
   }
 
   onSubmit(): void{
     const id = parseInt(this.route.snapshot.paramMap.get('id'), 10);
+    this.categoryForm.value.group = this.selectedGroup
 
     if(id !== null && !isNaN(id)) {
       this.category.id = id

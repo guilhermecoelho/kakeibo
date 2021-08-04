@@ -9,7 +9,7 @@ import { ExpensesService } from './expenses.service';
   styleUrls: ['./expenses.component.css']
 })
 export class ExpensesComponent implements OnInit {
-  @Input() columns = ['id', 'name'];
+  @Input() columns = ['id', 'name','amount', 'date', 'note'];
 
   dataSource: Expense[];
 

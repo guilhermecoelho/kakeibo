@@ -1,12 +1,18 @@
-<p>users-insert</p>
+<p>Insert User</p>
 
-<button class="button" type="submit" (click)="onDelete()">Delete</button>
-<form [formGroup]="userForm" (ngSubmit)="onSubmit()">
-    <label for="user">Name</label>
-    <input id="user" type="text" formControlName="user">
+<button mat-raised-button type="submit" (click)="onDelete()">Delete</button>
 <br>
-    <label for="password">Password</label>
-    <input id="password" type="text" formControlName="password">
+<br>
+<form [formGroup]="userForm" (ngSubmit)="onSubmit()">
+    <mat-form-field appearance="fill">
+        <mat-label>Name</mat-label>
+        <input matInput id="user" type="text" formControlName="user">
+    </mat-form-field>
+<br>
+    <mat-form-field appearance="fill">
+        <mat-label>Password</mat-label>
+        <input matInput id="password" type="text" formControlName="user">
+    </mat-form-field>
     <br>
-    <button class="button" type="submit">Save</button>
+    <button mat-raised-button type="submit">Save</button>
 </form>

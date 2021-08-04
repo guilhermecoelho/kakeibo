@@ -1,22 +1,37 @@
 <p>income-insert</p>
 
-<button class="button" type="submit" (click)="onDelete()">Delete</button>
-<form [formGroup]="incomeForm" (ngSubmit)="onSubmit()">
-    <label for="name">Name</label>
-    <input id="name" type="text" formControlName="name">
+<button mat-raised-button type="submit" (click)="onDelete()">Delete</button>
 <br>
-    <label for="amount">Amount</label>
-    <input id="amount" type="number" formControlName="amount">
+<br>
+<form  [formGroup]="incomeForm" (ngSubmit)="onSubmit()">
+    <mat-form-field appearance="fill">
+        <mat-label>Name</mat-label>
+        <input matInput id="name" type="text" formControlName="name">
+    </mat-form-field>
+<br>
+    <mat-form-field appearance="fill">
+        <mat-label>Amount</mat-label>
+        <input matInput id="amount" type="number" formControlName="amount">
+    </mat-form-field>
     <br>
-    <label for="date">Date</label>
-    <input id="date" type="date" formControlName="date">
+    <mat-form-field appearance="fill">
+        <mat-label>Date</mat-label>
+        <input matInput id="date" type="date" formControlName="date">
+    </mat-form-field>
     <br>
-    <label for="note">Notes</label>
-    <input id="note" type="text" formControlName="note">
+    <mat-form-field appearance="fill">
+        <mat-label>Note</mat-label>
+        <input matInput id="note" type="text" formControlName="note">
+    </mat-form-field>
     <br>
-    <select class="custom-select" formControlName="category">
-        <option *ngFor="let category of categories" [ngValue]="category">{{category.name}}</option>
-     </select>
+    <mat-form-field appearance="fill">
+        <mat-label>Category</mat-label>
+        <mat-select [(value)]="selectedCategory">
+            <mat-option *ngFor="let category of categories" [value]="category">
+                {{category.name}}
+            </mat-option>
+        </mat-select>
+    </mat-form-field>
      <br>
-    <button class="button" type="submit">Save</button>
+    <button mat-raised-button type="submit">Save</button>
 </form>

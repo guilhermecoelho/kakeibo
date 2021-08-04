@@ -39,7 +39,7 @@ export class IncomeService {
   }
 
   putIncome(req: Income): Observable<Income> {
-    return this.http.put<Income>('api/Income/', req)
+    return this.http.put<Income>('api/income/', req)
     .pipe( 
       catchError(err =>{
         return EMPTY
@@ -48,7 +48,7 @@ export class IncomeService {
   }
 
   deleteIncome(id: number): Observable<Income> {
-    return this.http.delete<Income>('api/Income/'+ id)
+    return this.http.delete<Income>('api/income/'+ id)
     .pipe( 
       catchError(err =>{
         return EMPTY

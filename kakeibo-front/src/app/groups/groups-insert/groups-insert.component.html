@@ -1,9 +1,13 @@
-<p>groups-insert</p>
+<p>groups insert</p>
 
-<button class="button" type="submit" (click)="onDelete()">Delete</button>
+<button mat-raised-button type="submit" (click)="onDelete()">Delete</button>
+<br>
+<br>
 <form [formGroup]="groupForm" (ngSubmit)="onSubmit()">
-    <label for="name">Name</label>
-    <input id="name" type="text" formControlName="name">
-
-    <button class="button" type="submit">Save</button>
+    <mat-form-field appearance="fill">
+        <mat-label>Name</mat-label>
+        <input matInput id="name" type="text" formControlName="name">
+    </mat-form-field>
+<br>
+    <button mat-raised-button type="submit">Save</button>
 </form>
