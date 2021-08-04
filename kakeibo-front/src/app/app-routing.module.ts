@@ -6,6 +6,8 @@ import { ExpensesInsertComponent } from './expenses/expenses-insert/expenses-ins
 import { ExpensesComponent } from './expenses/expenses.component';
 import { GroupsInsertComponent } from './groups/groups-insert/groups-insert.component';
 import { GroupsComponent } from './groups/groups.component';
+import { IncomeInsertComponent } from './incomes/income-insert/income-insert.component';
+import { IncomesComponent } from './incomes/incomes.component';
 import { LoginComponent } from './login/login.component';
 
 const routes: Routes = [
@@ -21,11 +23,15 @@ const routes: Routes = [
 
   { path: 'expenses', component: ExpensesComponent },
   { path: 'expenses/insert', component: ExpensesInsertComponent },
-  { path: 'expenses/insert/:id', component: ExpensesInsertComponent }
+  { path: 'expenses/insert/:id', component: ExpensesInsertComponent },
+
+  { path: 'incomes', component: IncomesComponent },
+  { path: 'incomes/insert', component: IncomeInsertComponent },
+  { path: 'incomes/insert/:id', component: IncomeInsertComponent }
 ];
 
 @NgModule({
-  imports: [RouterModule.forRoot(routes)],
+  imports: [RouterModule.forRoot(routes, { relativeLinkResolution: 'legacy' })],
   exports: [RouterModule]
 })
 export class AppRoutingModule { }

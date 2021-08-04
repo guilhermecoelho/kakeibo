@@ -22,6 +22,8 @@ import { MatListModule } from '@angular/material/list';
 import { MatTableModule } from '@angular/material/table';
 import { ExpensesComponent } from './expenses/expenses.component';
 import { ExpensesInsertComponent } from './expenses/expenses-insert/expenses-insert.component';
+import { IncomesComponent } from './incomes/incomes.component';
+import { IncomeInsertComponent } from './incomes/income-insert/income-insert.component';
 
 @NgModule({
   declarations: [
@@ -32,7 +34,9 @@ import { ExpensesInsertComponent } from './expenses/expenses-insert/expenses-ins
     CategoriesComponent,
     CategoriesInsertComponent,
     ExpensesComponent,
-    ExpensesInsertComponent
+    ExpensesInsertComponent,
+    IncomesComponent,
+    IncomeInsertComponent
   ],
   imports: [
     BrowserModule,

@@ -1,0 +1,22 @@
+<p>income-insert</p>
+
+<button class="button" type="submit" (click)="onDelete()">Delete</button>
+<form [formGroup]="incomeForm" (ngSubmit)="onSubmit()">
+    <label for="name">Name</label>
+    <input id="name" type="text" formControlName="name">
+<br>
+    <label for="amount">Amount</label>
+    <input id="amount" type="number" formControlName="amount">
+    <br>
+    <label for="date">Date</label>
+    <input id="date" type="date" formControlName="date">
+    <br>
+    <label for="note">Notes</label>
+    <input id="note" type="text" formControlName="note">
+    <br>
+    <select class="custom-select" formControlName="category">
+        <option *ngFor="let category of categories" [ngValue]="category">{{category.name}}</option>
+     </select>
+     <br>
+    <button class="button" type="submit">Save</button>
+</form>

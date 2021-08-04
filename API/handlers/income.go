@@ -88,9 +88,15 @@ func PostIncome(resp http.ResponseWriter, r *http.Request) {
 
 func DeleteIncome(resp http.ResponseWriter, r *http.Request) {
 
-	errDecode := income.DecodeBody(*r)
-	if errDecode != nil {
-		http.Error(resp, "Request format error", http.StatusBadRequest)
+	params := mux.Vars(r)
+	id, errorReq := strconv.Atoi(params["id"])
+	if errorReq != nil {
+		http.Error(resp, errorReq.Error(), http.StatusBadRequest)
+		return
+	}
+	income, errGet := data.GetIncomesById(id)
+	if errGet != nil {
+		http.Error(resp, errGet.Error(), http.StatusBadRequest)
 		return
 	}
 
