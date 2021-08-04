@@ -1,0 +1,12 @@
+<p>users-insert</p>
+
+<button class="button" type="submit" (click)="onDelete()">Delete</button>
+<form [formGroup]="userForm" (ngSubmit)="onSubmit()">
+    <label for="user">Name</label>
+    <input id="user" type="text" formControlName="user">
+<br>
+    <label for="password">Password</label>
+    <input id="password" type="text" formControlName="password">
+    <br>
+    <button class="button" type="submit">Save</button>
+</form>

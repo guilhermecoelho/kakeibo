@@ -9,6 +9,8 @@ import { GroupsComponent } from './groups/groups.component';
 import { IncomeInsertComponent } from './incomes/income-insert/income-insert.component';
 import { IncomesComponent } from './incomes/incomes.component';
 import { LoginComponent } from './login/login.component';
+import { UsersInsertComponent } from './users/users-insert/users-insert.component';
+import { UsersComponent } from './users/users.component';
 
 const routes: Routes = [
   { path: 'login', component: LoginComponent },
@@ -27,7 +29,11 @@ const routes: Routes = [
 
   { path: 'incomes', component: IncomesComponent },
   { path: 'incomes/insert', component: IncomeInsertComponent },
-  { path: 'incomes/insert/:id', component: IncomeInsertComponent }
+  { path: 'incomes/insert/:id', component: IncomeInsertComponent },
+
+  { path: 'users', component: UsersComponent },
+  { path: 'users/insert', component: UsersInsertComponent },
+  { path: 'users/insert/:id', component: UsersInsertComponent }
 ];
 
 @NgModule({

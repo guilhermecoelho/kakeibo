@@ -118,9 +118,15 @@ func PostUser(resp http.ResponseWriter, r *http.Request) {
 
 func DeleteUser(resp http.ResponseWriter, r *http.Request) {
 
-	errDecode := user.DecodeBody(*r)
-	if errDecode != nil {
-		http.Error(resp, "Request format error", http.StatusBadRequest)
+	params := mux.Vars(r)
+	id, errorReq := strconv.Atoi(params["id"])
+	if errorReq != nil {
+		http.Error(resp, errorReq.Error(), http.StatusBadRequest)
+		return
+	}
+	user, errGet := data.GetUserById(id)
+	if errGet != nil {
+		http.Error(resp, errGet.Error(), http.StatusBadRequest)
 		return
 	}
 

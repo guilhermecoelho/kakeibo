@@ -11,7 +11,6 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { HandleInterceptor } from './handle.interceptor';
 import { LocalStorageService } from './local-storage.service';
 import { LoginComponent } from './login/login.component';
-import { LoginService } from './login/login.service';
 import { CategoriesComponent } from './categories/categories.component';
 import { CategoriesInsertComponent } from './categories/categories-insert/categories-insert.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
@@ -24,6 +23,9 @@ import { ExpensesComponent } from './expenses/expenses.component';
 import { ExpensesInsertComponent } from './expenses/expenses-insert/expenses-insert.component';
 import { IncomesComponent } from './incomes/incomes.component';
 import { IncomeInsertComponent } from './incomes/income-insert/income-insert.component';
+import { Router } from '@angular/router';
+import { UsersComponent } from './users/users.component';
+import { UsersInsertComponent } from './users/users-insert/users-insert.component';
 
 @NgModule({
   declarations: [
@@ -36,7 +38,9 @@ import { IncomeInsertComponent } from './incomes/income-insert/income-insert.com
     ExpensesComponent,
     ExpensesInsertComponent,
     IncomesComponent,
-    IncomeInsertComponent
+    IncomeInsertComponent,
+    UsersComponent,
+    UsersInsertComponent
   ],
   imports: [
     BrowserModule,
@@ -52,7 +56,7 @@ import { IncomeInsertComponent } from './incomes/income-insert/income-insert.com
   ],
   providers: [
     GroupServiceService,
-    { provide: HTTP_INTERCEPTORS, useClass: HandleInterceptor, multi: true, deps:[LocalStorageService, LoginService]}
+    { provide: HTTP_INTERCEPTORS, useClass: HandleInterceptor, multi: true, deps:[LocalStorageService, Router]}
   ],
   bootstrap: [AppComponent]
 })
