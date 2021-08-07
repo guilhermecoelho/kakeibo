@@ -54,6 +54,8 @@ func main() {
 	postRouter.HandleFunc("/user/", configurations.IsAuthorized(handlers.PostUser))
 	deleteRouter.HandleFunc("/user/{id}", configurations.IsAuthorized(handlers.DeleteUser))
 
+	postRouter.HandleFunc("/report/", handlers.GetReport)
+
 	log.Fatal(http.ListenAndServe(":8080", routes))
 }
 
