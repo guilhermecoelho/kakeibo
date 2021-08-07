@@ -1,22 +1,22 @@
 package tests
 
 import (
-	"bytes"
-	"encoding/json"
-	"net/http"
-	"net/http/httptest"
 	"testing"
 
-	"github.com/guilhermecoelho/kakeibo/handlers"
+	"github.com/google/go-cmp/cmp"
 	"github.com/guilhermecoelho/kakeibo/models"
+	"github.com/guilhermecoelho/kakeibo/services"
 )
 
-type testIncome struct {
+type FakeReportRequest struct {
+	DateStart  string
+	DateFinish string
 }
 
-func (testIncome) Find() (models.Incomes, error) {
-	incomes := models.Incomes{}
+var incomes = models.Incomes{}
+var expenses = models.Expenses{}
 
+func populateIncome() {
 	income := models.Income{}
 	income.Id = 1
 	income.Amount = 10
@@ -27,41 +27,64 @@ func (testIncome) Find() (models.Incomes, error) {
 
 	incomes = append(incomes, &income)
 	incomes = append(incomes, &income2)
+}
 
+func populateExpense() {
+	expense := models.Expense{}
+	expense.Id = 1
+	expense.Amount = 10
+
+	expense2 := models.Expense{}
+	expense2.Id = 2
+	expense2.Amount = 30
+
+	expenses = append(expenses, &expense)
+	expenses = append(expenses, &expense2)
+}
+
+func (FakeReportRequest) FindIncome() (models.Incomes, error) {
 	return incomes, nil
 }
 
-func TestReport(t *testing.T) {
+func (FakeReportRequest) FindExpense() (models.Expenses, error) {
+	return expenses, nil
+}
 
-	reportReq := models.ReportRequest{}
-	reportReq.DateStart = "2020-12-01"
-	reportReq.DateFinish = "2020-12-02"
+func (r FakeReportRequest) GetDates() [2]string {
 
-	requestBody, _ := json.Marshal(reportReq)
+	date := [...]string{r.DateStart, r.DateFinish}
 
-	req, err := http.NewRequest("POST", "/api/report", bytes.NewBuffer(requestBody))
+	return date
+}
+
+func TestReportService(t *testing.T) {
+
+	//Arrange
+	expectedReport := models.Report{}
+
+	populateIncome()
+	populateExpense()
+
+	expectedReport.DateStart = "2020-12-01"
+	expectedReport.DateFinish = "2020-12-02"
+	expectedReport.Incomes = incomes
+	expectedReport.Expenses = expenses
+
+	expectedReport.TotalExpense = 40
+	expectedReport.TotalIncome = 25
+	expectedReport.Balance = expectedReport.TotalIncome - expectedReport.TotalExpense
+
+	var r services.ReportInterface = FakeReportRequest{DateStart: "2020-12-01", DateFinish: "2020-12-02"}
+
+	//Act
+	report, err := services.GetReport(r)
+
+	//Assert
 	if err != nil {
-		t.Fatal(err)
+		t.Errorf("Error returned: %v", err)
 	}
 
-	//responseReporter
-	rr := httptest.NewRecorder()
-	handler := http.HandlerFunc(handlers.GetReport)
-
-	handler.ServeHTTP(rr, req)
-
-	if status := rr.Code; status != http.StatusOK {
-		t.Errorf("handler returned wrong status code: got %v want %v",
-			status, http.StatusOK)
-	}
-
-	// expectReport := models.Report{}
-	// expectReport.Name = "myname"
-
-	expected := `{"dateStart":"2020-12-01", "dateFinish":"2020-12-02"}`
-
-	if rr.Body.String() != expected {
-		t.Errorf("handler returned unexpected body: got %v want %v",
-			rr.Body.String(), expected)
+	if !cmp.Equal(expectedReport, report) {
+		t.Errorf("values differents")
 	}
 }
