@@ -61,7 +61,7 @@ func GetReport(r ReportInterface) (models.Report, error) {
 	}
 
 	for i := 0; i < len(report.Expenses); i++ {
-		report.TotalExpense = report.TotalExpense - report.Expenses[i].Amount
+		report.TotalExpense = report.TotalExpense + report.Expenses[i].Amount
 	}
 
 	report.Balance = report.TotalIncome - report.TotalExpense

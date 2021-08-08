@@ -27,6 +27,9 @@ import { Router } from '@angular/router';
 import { UsersComponent } from './users/users.component';
 import { UsersInsertComponent } from './users/users-insert/users-insert.component';
 import { MatSelectModule } from '@angular/material/select';
+import { ReportsComponent } from './reports/reports.component';
+import {MatToolbarModule} from '@angular/material/toolbar'
+
 
 @NgModule({
   declarations: [
@@ -41,7 +44,8 @@ import { MatSelectModule } from '@angular/material/select';
     IncomesComponent,
     IncomeInsertComponent,
     UsersComponent,
-    UsersInsertComponent
+    UsersInsertComponent,
+    ReportsComponent
   ],
   imports: [
     BrowserModule,
@@ -54,7 +58,8 @@ import { MatSelectModule } from '@angular/material/select';
     MatInputModule,
     MatListModule,
     MatTableModule,
-    MatSelectModule
+    MatSelectModule,
+    MatToolbarModule
   ],
   providers: [
     GroupServiceService,

@@ -297,7 +297,18 @@
     }
   }
 </style>
+'
+<h1>Kakeibo</h1>'
+<mat-toolbar color="primary">
+  
+  <div>
+  <a  mat-button [routerLink]="'/reports'">Reports</a>
+  <a  mat-button [routerLink]="'/incomes'">Incomes</a>
+  <a  mat-button [routerLink]="'/expenses'">Expenses</a>
+  <a  mat-button [routerLink]="'/groups'">Groups</a>
+  <a  mat-button [routerLink]="'/categories'">Categories</a>
+  </div>
 
-<h1>Kakeibo</h1>
+</mat-toolbar>
 
 <router-outlet></router-outlet>
