@@ -21,4 +21,8 @@ jobs:
     - name: Build
       working-directory: ./API
       run: go build -v main.go
+      
+    - name: Test
+      working-directory: ./API/tests
+      run: go test -v
 
