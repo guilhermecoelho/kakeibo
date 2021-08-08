@@ -5,8 +5,6 @@ import (
 	"github.com/guilhermecoelho/kakeibo/models"
 )
 
-var report = models.Report{}
-
 type ReportInterface interface {
 	FindIncome() (models.Incomes, error)
 	FindExpense() (models.Expenses, error)
@@ -20,7 +18,7 @@ type ReportRequest struct {
 
 func (r ReportRequest) FindIncome() (models.Incomes, error) {
 
-	incomes, errorData := data.GetIncomes()
+	incomes, errorData := data.GetIncomesByPeriod(r.DateStart, r.DateFinish)
 	if errorData != nil {
 		return incomes, errorData
 	}
@@ -29,7 +27,7 @@ func (r ReportRequest) FindIncome() (models.Incomes, error) {
 
 func (r ReportRequest) FindExpense() (models.Expenses, error) {
 
-	expenses, errorData := data.GetExpenses()
+	expenses, errorData := data.GetExpensesByPeriod(r.DateStart, r.DateFinish)
 	if errorData != nil {
 		return expenses, errorData
 	}
@@ -44,6 +42,8 @@ func (r ReportRequest) GetDates() [2]string {
 }
 
 func GetReport(r ReportInterface) (models.Report, error) {
+
+	var report = models.Report{}
 
 	dates := r.GetDates()
 
@@ -61,7 +61,7 @@ func GetReport(r ReportInterface) (models.Report, error) {
 	}
 
 	for i := 0; i < len(report.Expenses); i++ {
-		report.TotalExpense = report.TotalExpense + report.Expenses[i].Amount
+		report.TotalExpense = report.TotalExpense - report.Expenses[i].Amount
 	}
 
 	report.Balance = report.TotalIncome - report.TotalExpense

@@ -7,41 +7,6 @@ import (
 	"github.com/guilhermecoelho/kakeibo/models"
 )
 
-type IncomeInterface interface {
-	Find() (models.Incomes, error)
-}
-
-type IncomeRequest struct {
-}
-
-func Find() (models.Incomes, error) {
-
-	incomes := models.Incomes{}
-	result := configurations.DBgorm.Find(&incomes)
-
-	if result.Error != nil {
-		return incomes, fmt.Errorf("error on: %v", result.Error)
-	}
-
-	return incomes, nil
-}
-
-func GetIncomesTest(req IncomeInterface) (models.Incomes, error) {
-	return req.Find()
-}
-
-func (IncomeRequest) GetIncomesTest2(req IncomeInterface) (models.Incomes, error) {
-
-	income := models.Incomes{}
-	result := configurations.DBgorm.Find(&income)
-
-	if result.Error != nil {
-		return income, fmt.Errorf("error on: %v", result.Error)
-	}
-
-	return income, nil
-}
-
 func GetIncomes() (models.Incomes, error) {
 
 	income := models.Incomes{}
@@ -64,6 +29,18 @@ func GetIncomesById(id int) (models.Income, error) {
 	}
 
 	return income, nil
+}
+
+func GetIncomesByPeriod(dateStart string, dateFinish string) (models.Incomes, error) {
+
+	incomes := models.Incomes{}
+	result := configurations.DBgorm.Where("date BETWEEN ? AND ?", dateStart, dateFinish).Find(&incomes)
+
+	if result.Error != nil {
+		return incomes, fmt.Errorf("error on: %v", result.Error)
+	}
+
+	return incomes, nil
 }
 
 func PutIncomes(g *models.Income) (models.Income, error) {

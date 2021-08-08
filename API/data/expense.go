@@ -31,6 +31,18 @@ func GetExpensesById(id int) (models.Expense, error) {
 	return expense, nil
 }
 
+func GetExpensesByPeriod(dateStart string, dateFinish string) (models.Expenses, error) {
+
+	expenses := models.Expenses{}
+	result := configurations.DBgorm.Where("date BETWEEN ? AND ?", dateStart, dateFinish).Find(&expenses)
+
+	if result.Error != nil {
+		return expenses, fmt.Errorf("error on: %v", result.Error)
+	}
+
+	return expenses, nil
+}
+
 func PutExpenses(g *models.Expense) (models.Expense, error) {
 
 	expense := *g

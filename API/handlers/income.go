@@ -14,8 +14,7 @@ var income = models.Income{}
 func GetIncomes(resp http.ResponseWriter, r *http.Request) {
 
 	incomes, errorData := data.GetIncomes()
-	// incomeReq := data.IncomeRequest{}
-	// incomes, errorData := data.GetIncomesTest(incomeReq)
+
 	if errorData != nil {
 		http.Error(resp, errorData.Error(), http.StatusInternalServerError)
 		return

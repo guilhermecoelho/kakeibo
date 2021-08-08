@@ -57,7 +57,7 @@ func (r FakeReportRequest) GetDates() [2]string {
 	return date
 }
 
-func TestReportService(t *testing.T) {
+func TestReportService_happyflow(t *testing.T) {
 
 	//Arrange
 	expectedReport := models.Report{}
