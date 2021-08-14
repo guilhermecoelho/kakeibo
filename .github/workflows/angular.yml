@@ -35,9 +35,11 @@ jobs:
       - name: Node ${{ matrix.node-version }}
         uses: actions/setup-node@v1
         with:
+          working-directory: ./kakeibo-front
           node-version: ${{ matrix.node-version }}
       
       - name: npm install and npm run build
+        working-directory: ./kakeibo-front
         run: |
           npm install
           npm run build
