@@ -16,6 +16,8 @@ jobs:
   build:
     # The type of runner that the job will run on
     runs-on: ubuntu-latest
+    env:
+      working-directory: ./kakeibo-front
 
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
@@ -35,11 +37,11 @@ jobs:
       - name: Node ${{ matrix.node-version }}
         uses: actions/setup-node@v1
         with:
-          working-directory: ./kakeibo-front
+          working-directory: ${{env.working-directory}}
           node-version: ${{ matrix.node-version }}
       
       - name: npm install and npm run build
-        working-directory: ./kakeibo-front
+        working-directory: ${{env.working-directory}}
         run: |
           npm install
           npm run build
