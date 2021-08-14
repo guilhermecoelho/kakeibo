@@ -44,5 +44,6 @@ jobs:
         working-directory: ${{env.working-directory}}
         run: |
           npm install
-          npm run build
+          npm install @angular/cli
+          ng build --configuration production
           
