@@ -30,6 +30,7 @@ jobs:
       uses: appleboy/ssh-action@master
       with:
         host: 85.242.73.48
+        username: 'guilhermecoelho2@gmail.com'
         key: ${{ secrets.SSH_PRIVATE_KEY }}
         port: 22
         script: |
