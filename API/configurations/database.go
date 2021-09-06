@@ -5,6 +5,7 @@ import (
 	"database/sql"
 	"fmt"
 	"log"
+	"os"
 
 	"github.com/guilhermecoelho/kakeibo/models"
 	_ "github.com/lib/pq"
@@ -30,7 +31,9 @@ func InitDatabasePostgre() {
 }
 
 func InitDatabaseGorm() {
-	dsn := "host=localhost user=postgres password=Postgres2018! dbname=Kakeibo port=5432 sslmode=disable"
+
+	dsn := "host=" + os.Getenv("SQL_URL") + " user=postgres password=Postgres2018! dbname=Kakeibo port=5432 sslmode=disable"
+
 	db, err := gorm.Open(postgres.Open(dsn), &gorm.Config{})
 	if err != nil {
 		log.Fatal("Error creating connection pool: ", err.Error())

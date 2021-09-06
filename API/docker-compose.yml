@@ -1,0 +1,17 @@
+version: '3'
+services:
+   
+    kakeiboApi:
+        image: kakeibo-api:latest
+        container_name: kakeibo-api
+        ports:
+          - "8080:8080"
+        networks: 
+          website_network:
+            aliases: 
+              - kakeiboApi
+        environment:
+          - SQL_URL=kakeibo-sqlserver
+networks: 
+    website_network:
+      name: website_network

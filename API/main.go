@@ -7,9 +7,12 @@ import (
 	"github.com/gorilla/mux"
 	"github.com/guilhermecoelho/kakeibo/configurations"
 	"github.com/guilhermecoelho/kakeibo/handlers"
+	"github.com/joho/godotenv"
 )
 
 func main() {
+
+	godotenv.Load(".env")
 
 	go configurations.InitDatabaseGorm()
 

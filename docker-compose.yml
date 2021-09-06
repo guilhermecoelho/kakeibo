@@ -1,22 +1,53 @@
 version: '3'
 services:
     postgresqlserver:
-        image: postgres:latest
-        container_name: kakeibo-sqlserver
-        volumes:
-           - D:\Docker\Glovo\postgresql:/var/lib/postgresql/data 
-        ports:
-           - "5432:5432"
-        environment:
-           - ACCEPT_EULA=Y 
-           - MSSQL_PID=postgres
-           - POSTGRES_PASSWORD=Postgres2018!
+            image: postgres:12
+            container_name: kakeibo-sqlserver
+            volumes:
+               - D:\Docker\Glovo\postgresql:/var/lib/postgresql/data 
+            ports:
+               - "5432:5432"
+            networks: 
+                  website_network:
+                     aliases: 
+                        - postgres
+            environment:
+               - ACCEPT_EULA=Y 
+               - MSSQL_PID=postgres
+               - POSTGRES_PASSWORD=Postgres2018!
 
     pgadmin4:
             image: dpage/pgadmin4:latest
             container_name: kakeibo-pgadmin4
             ports:
                - "15432:80"
+            networks: 
+               website_network:
+                  aliases: 
+                     - pgadmin4
             environment:
                - PGADMIN_DEFAULT_EMAIL=email@email.com 
                - PGADMIN_DEFAULT_PASSWORD=PgAdmin2018!
+            restart: unless-stopped
+   #  nginx:
+   #          build: ./nginx
+   #          container_name: nginx
+   #          ports:
+   #             - "80:80"
+   #          networks: 
+   #             website_network:
+   #                aliases: 
+   #                   - nginx-proxy
+   #  kakeiboApi:
+   #      image: kakeibo-api:latest
+   #      container_name: kakeibo-api
+   #      ports:
+   #        - "8080:8080"
+   #      depends_on:
+   #        - postgresqlserver
+   #      environment:
+   #        SQL_URL: kakeibo-sqlserver
+
+networks: 
+    website_network:
+      name: website_network
