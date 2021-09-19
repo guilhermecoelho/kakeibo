@@ -3,6 +3,7 @@ package main
 import (
 	"log"
 	"net/http"
+	"os"
 
 	"github.com/gorilla/mux"
 	"github.com/guilhermecoelho/kakeibo/configurations"
@@ -14,7 +15,10 @@ func main() {
 
 	godotenv.Load(".env")
 
-	go configurations.InitDatabaseGorm()
+	var req configurations.DatabaseInterface = configurations.ConnectToDatabaseRequest{
+		DatabaseName: os.Getenv("DATABASE_TYPE"),
+	}
+	go configurations.ConnectToDatabase(req)
 
 	routes := mux.NewRouter().StrictSlash(true)
 
