@@ -57,7 +57,7 @@ func (d ConnectToDatabaseRequest) InitDatabasePostgre() {
 
 func (d ConnectToDatabaseRequest) InitDatabaseGorm() {
 
-	dsn := "host=" + os.Getenv("SQL_URL") + " user=postgres password=Postgres2018! dbname=Kakeibo port=5432 sslmode=disable"
+	dsn := "host=" + os.Getenv("SQL_URL") + " user=postgres password=Postgres2018! dbname=kakeibo port=5432 sslmode=disable"
 
 	db, err := gorm.Open(postgres.Open(dsn), &gorm.Config{})
 	if err != nil {

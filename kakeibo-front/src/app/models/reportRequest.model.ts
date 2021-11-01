@@ -1,4 +1,4 @@
 export class ReportRequest{
-    dateStart: Date;
-    dateFinish: Date;
+    dateStart: String;
+    dateFinish: String;
   }

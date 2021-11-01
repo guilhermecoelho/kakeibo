@@ -1,5 +1,4 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { Report } from '../models/report.model';
 import { ReportRequest } from '../models/reportRequest.model';
 import { ReportsService } from './reports.service';
 import { Moviment, ReportView } from './reportView.model';
@@ -30,17 +29,17 @@ export class ReportsComponent implements OnInit {
     this.reportRequest = new ReportRequest();
 
     let actualMonth = new Date().getMonth();
+    actualMonth++;
     let actualYear = new Date().getFullYear();
+    let lastDayMonth = ('0' + new Date(actualYear,actualMonth,0).getDate()).slice(-2);
 
-    this.reportRequest.dateStart = new Date(actualYear,actualMonth,1);
-    this.reportRequest.dateFinish = new Date(actualYear,actualMonth+1,0);
+    this.reportRequest.dateStart = actualYear+'-'+actualMonth+'-01';
+    this.reportRequest.dateFinish = actualYear+'-'+actualMonth+'-'+lastDayMonth;
 
     this.service.postReport(this.reportRequest)
     .subscribe(data => {
        this.reportView = new ReportView();
        this.reportView.moviments = new Array()
-
-      let mergeMoviments = [...data.Expenses, ...data.Incomes]
 
       data.Expenses.forEach(item => {
         this.reportView.moviments.push(this.populateMoviment(item, true));
@@ -55,9 +54,6 @@ export class ReportsComponent implements OnInit {
       this.reportView.dateStart = data.dateStart
       this.reportView.dateFinish = data.dateFinish
 
-
-      console.log(this.reportView)
-      //this.dataSource = data
     })
   }
 

@@ -18,7 +18,7 @@ func main() {
 	var req configurations.DatabaseInterface = configurations.ConnectToDatabaseRequest{
 		DatabaseName: os.Getenv("DATABASE_TYPE"),
 	}
-	go configurations.ConnectToDatabase(req)
+	configurations.ConnectToDatabase(req)
 
 	routes := mux.NewRouter().StrictSlash(true)
 

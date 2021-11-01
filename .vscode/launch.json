@@ -9,7 +9,7 @@
             "type": "go",
             "request": "launch",
             "mode": "auto",
-            "program": "${workspaceFolder}\\API\\main.go"
+            "program": "${workspaceFolder}/API/main.go"
         },
         {
             "name": "Test Current File",
