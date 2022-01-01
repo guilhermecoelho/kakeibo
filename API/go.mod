@@ -3,6 +3,7 @@ module github.com/guilhermecoelho/kakeibo
 go 1.16
 
 require (
+	github.com/go-redis/redis v6.15.9+incompatible
 	github.com/golang-jwt/jwt v3.2.1+incompatible
 	github.com/google/go-cmp v0.5.6
 	github.com/gorilla/mux v1.8.0

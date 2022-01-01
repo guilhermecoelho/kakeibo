@@ -11,15 +11,19 @@ import (
 	_ "github.com/lib/pq"
 	"gorm.io/driver/postgres"
 	"gorm.io/gorm"
+
+	"github.com/go-redis/redis"
 )
 
 var DBPostgre *sql.DB
 var DBgorm *gorm.DB
+var DBRedis *redis.Client
 
 type DatabaseInterface interface {
 	GetDatabaseName() string
 	InitDatabasePostgre()
 	InitDatabaseGorm()
+	InitDatabaseRedis()
 }
 
 type ConnectToDatabaseRequest struct {
@@ -38,6 +42,8 @@ func ConnectToDatabase(i DatabaseInterface) {
 		i.InitDatabasePostgre()
 	case "gorm":
 		i.InitDatabaseGorm()
+	case "redis":
+		i.InitDatabaseRedis()
 	}
 }
 
@@ -66,7 +72,19 @@ func (d ConnectToDatabaseRequest) InitDatabaseGorm() {
 	fmt.Printf("Connected on postgre with gorm!\n")
 
 	DBgorm = db
+}
 
+func (d ConnectToDatabaseRequest) InitDatabaseRedis() {
+	client := redis.NewClient(&redis.Options{
+		Addr:     "localhost:6379",
+		Password: "",
+		DB:       0,
+	})
+
+	DBRedis = client
+
+	pong, err := client.Ping().Result()
+	fmt.Println(pong, err)
 }
 
 func CreateDatabase() {

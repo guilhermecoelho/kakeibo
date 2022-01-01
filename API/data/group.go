@@ -22,11 +22,16 @@ func GetGroups() (models.Groups, error) {
 func GetGroupById(id int) (models.Group, error) {
 
 	group := models.Group{}
-	result := configurations.DBgorm.First(&group, id)
+	// result := configurations.DBgorm.First(&group, id)
 
-	if result.Error != nil {
-		return group, fmt.Errorf("error on: %v", result.Error)
+	// if result.Error != nil {
+	// 	return group, fmt.Errorf("error on: %v", result.Error)
+	// }
+	result, err := configurations.DBRedis.Get("group").Result()
+	if err != nil {
+		return group, fmt.Errorf("error on: %v", err)
 	}
+	group.Name = result
 
 	return group, nil
 }
@@ -53,15 +58,25 @@ func PostGroup(g *models.Group) (models.Group, error) {
 
 	group := *g
 	group.Id = 0
-	result := configurations.DBgorm.Create(&group)
+	//result := configurations.DBgorm.Create(&group)
 
-	if result.Error != nil {
-		return group, fmt.Errorf("error on: %v", result.Error)
+	// if result.Error != nil {
+	// 	return group, fmt.Errorf("error on: %v", result.Error)
+	// }
+
+	// group, err := GetGroupById(group.Id)
+	// if err != nil {
+	// 	return group, fmt.Errorf("error on: %v", result.Error)
+	// }
+
+	err := configurations.DBRedis.Set("group", "group test", 0).Err()
+	if err != nil {
+		return group, fmt.Errorf("error on: %v", err)
 	}
 
-	group, err := GetGroupById(group.Id)
+	group, error := GetGroupById(group.Id)
 	if err != nil {
-		return group, fmt.Errorf("error on: %v", result.Error)
+		return group, fmt.Errorf("error on: %v", error)
 	}
 
 	return group, nil

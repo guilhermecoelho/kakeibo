@@ -18,7 +18,7 @@ func main() {
 	var req configurations.DatabaseInterface = configurations.ConnectToDatabaseRequest{
 		DatabaseName: os.Getenv("DATABASE_TYPE"),
 	}
-	configurations.ConnectToDatabase(req)
+	go configurations.ConnectToDatabase(req)
 
 	routes := mux.NewRouter().StrictSlash(true)
 
@@ -28,12 +28,14 @@ func main() {
 	deleteRouter := routes.Methods(http.MethodDelete).PathPrefix("/api").Subrouter()
 
 	postRouter.HandleFunc("/login/", handlers.Login)
+	getRouter.HandleFunc("/group/{id}", handlers.GetGroupById)
+	postRouter.HandleFunc("/group/", handlers.PostGroup)
 
 	getRouter.HandleFunc("/group/", configurations.IsAuthorized(handlers.GetGroups))
 
-	getRouter.HandleFunc("/group/{id}", configurations.IsAuthorized(handlers.GetGroupById))
+	//getRouter.HandleFunc("/group/{id}", configurations.IsAuthorized(handlers.GetGroupById))
 	putRouter.HandleFunc("/group/", configurations.IsAuthorized(handlers.PutGroup))
-	postRouter.HandleFunc("/group/", configurations.IsAuthorized(handlers.PostGroup))
+	//postRouter.HandleFunc("/group/", configurations.IsAuthorized(handlers.PostGroup))
 	deleteRouter.HandleFunc("/group/{id}", configurations.IsAuthorized(handlers.DeleteGroup))
 
 	getRouter.HandleFunc("/category/", configurations.IsAuthorized(handlers.GetCategories))
