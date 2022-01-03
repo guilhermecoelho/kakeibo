@@ -2,7 +2,6 @@ package handlers
 
 import (
 	"net/http"
-	"strconv"
 
 	"github.com/gorilla/mux"
 	"github.com/guilhermecoelho/kakeibo/data"
@@ -28,13 +27,13 @@ func GetGroups(resp http.ResponseWriter, r *http.Request) {
 func GetGroupById(resp http.ResponseWriter, r *http.Request) {
 
 	params := mux.Vars(r)
-	id, errorReq := strconv.Atoi(params["id"])
-	if errorReq != nil {
-		http.Error(resp, errorReq.Error(), http.StatusBadRequest)
-		return
-	}
+	// id, errorReq := strconv.Atoi(params["id"])
+	// if errorReq != nil {
+	// 	http.Error(resp, errorReq.Error(), http.StatusBadRequest)
+	// 	return
+	// }
 
-	group, errorData := data.GetGroupById(id)
+	group, errorData := data.GetGroupById(params["id"])
 	if errorData != nil {
 		http.Error(resp, errorData.Error(), http.StatusInternalServerError)
 		return
@@ -89,12 +88,12 @@ func PostGroup(resp http.ResponseWriter, r *http.Request) {
 func DeleteGroup(resp http.ResponseWriter, r *http.Request) {
 
 	params := mux.Vars(r)
-	id, errorReq := strconv.Atoi(params["id"])
-	if errorReq != nil {
-		http.Error(resp, errorReq.Error(), http.StatusBadRequest)
-		return
-	}
-	group, errGet := data.GetGroupById(id)
+	// id, errorReq := strconv.Atoi(params["id"])
+	// if errorReq != nil {
+	// 	http.Error(resp, errorReq.Error(), http.StatusBadRequest)
+	// 	return
+	// }
+	group, errGet := data.GetGroupById(params["id"])
 	if errGet != nil {
 		http.Error(resp, errGet.Error(), http.StatusBadRequest)
 		return
